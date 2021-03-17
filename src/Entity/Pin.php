@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\Timestampable;
+use App\Repository\PinRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

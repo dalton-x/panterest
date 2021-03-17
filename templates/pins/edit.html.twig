@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition du Pin " {{pin.title}} "{% endblock %}
+
+{% block body %}
+<h1>Edition de la pin "{{pin.title}}"</h1>
+
+  {{ form_start(form) }}
+  
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Mise à jour d'une pin">
+
+  {{ form_end(form) }}
+    
+{% endblock %}
