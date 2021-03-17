@@ -6,7 +6,9 @@
 <h1>{{ pluralize( pins|length ,'Pin') }}</h1>
     {% for pin in pins %}
         <article>
-            <h2>{{ pin.title }}</h2>
+            <a href="{{path('app_pins_show',  {'id': pin.id})}}">
+                <h2>{{ pin.title }}</h2>
+            </a>
             <p> {{ pin.description }} </p>
         </article>
     {% endfor %}
