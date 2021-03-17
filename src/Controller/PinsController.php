@@ -15,7 +15,7 @@ class PinsController extends AbstractController
      */
     public function index(PinRepository $pinRepository): Response
     {  //                                 Trie par ordre descendant
-        $pins = $pinRepository->findby([],['createdAt' => 'ASC']);
+        $pins = $pinRepository->findby([],['createdAt' => 'DESC']);
         return $this->render('pins/index.html.twig',compact('pins'));
     }
 
