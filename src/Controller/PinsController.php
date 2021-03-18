@@ -17,79 +17,79 @@ class PinsController extends AbstractController
      * @Route("/", name="app_home", methods="GET")
      */
     public function index(PinRepository $pinRepository): Response
-    {  //                                 Trie par ordre descendant
-        $pins = $pinRepository->findby([],['createdAt' => 'DESC']);
-        return $this->render('pins/index.html.twig',compact('pins'));
-    }
+        {  //                                 Trie par ordre descendant
+            $pins = $pinRepository->findby([],['createdAt' => 'DESC']);
+            return $this->render('pins/index.html.twig',compact('pins'));
+        }
 
     /**
      * @Route("/pins/create", name="app_pins_create", methods="GET|POST")
      */
     public function create(Request $request, EntityManagerInterface $em): Response
-    {
-        // initilisateion de l'objet Pin
-        $pin = new Pin;
-        // Création du formulaire
-        $form = $this->createForm(PinType::class, $pin);
+        {
+            // initilisateion de l'objet Pin
+            $pin = new Pin;
+            // Création du formulaire
+            $form = $this->createForm(PinType::class, $pin);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($pin);
-            $em->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($pin);
+                $em->flush();
 
-            return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_home');
+            }
+
+            // Convertion en vue pour twig
+            $form = $form->createView();
+
+            // Envoie vers la vue twig
+            return $this->render('pins/create.html.twig', compact('form'));
         }
-
-        // Convertion en vue pour twig
-        $form = $form->createView();
-
-        // Envoie vers la vue twig
-        return $this->render('pins/create.html.twig', compact('form'));
-    }
 
     /**
      * @Route("/pins/{id<[0-9]+>}", name="app_pins_show", methods="GET")
      */
     public function show(Pin $pin): Response
-    {
-        return $this->render('pins/show.html.twig', compact('pin'));
-    }
+        {
+            return $this->render('pins/show.html.twig', compact('pin'));
+        }
 
     /**
      * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods="GET|PUT")
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
-    {
-        // Création du formulaire + Ajout de la methode PUT
-        $form = $this->createForm(PinType::class, $pin, [
-            'method'=> 'PUT'
-        ]);
+        {
+            // Création du formulaire + Ajout de la methode PUT
+            $form = $this->createForm(PinType::class, $pin, [
+                'method'=> 'PUT'
+            ]);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->flush();
 
-            return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_home');
+            }
+
+            // Convertion en vue pour twig
+            $form = $form->createView();
+
+            return $this->render('pins/edit.html.twig', compact('pin','form'));
         }
-
-        // Convertion en vue pour twig
-        $form = $form->createView();
-
-        return $this->render('pins/edit.html.twig', compact('pin','form'));
-    }
 
     /**
-     * @Route("/pins/{id<[0-9]+>}/delete", name="app_pins_delete", methods="DELETE")
+     * @Route("/pins/{id<[0-9]+>}", name="app_pins_delete", methods="DELETE")
      */
     public function delete( Request $request, Pin $pin, EntityManagerInterface $em): Response
-    {
-        $token = $request->request->get('csrf_token');
-        if ($this->isCsrfTokenValid('pin_deletion_'. $pin->getId(), $token)) {
-            $em->remove($pin);
-            $em->flush();
-            return $this->redirectToRoute('app_home');
+        {
+            $token = $request->request->get('csrf_token');
+            if ($this->isCsrfTokenValid('pin_deletion_'. $pin->getId(), $token)) {
+                $em->remove($pin);
+                $em->flush();
+                return $this->redirectToRoute('app_home');
+            }
         }
-    }
 }
