@@ -5,12 +5,6 @@
 {% block body %}
 <h1>Edition de la pin "{{pin.title}}"</h1>
 
-  {{ form_start(form) }}
-  
-    {{ form_widget(form) }}
-
-    <input type="submit" value="Mise à jour d'une pin">
-
-  {{ form_end(form) }}
+{% include "/pins/_form.html.twig" with {'submitBottomText': 'Mise à jour'} %}
     
 {% endblock %}
