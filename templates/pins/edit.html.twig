@@ -3,8 +3,12 @@
 {% block title %}Edition du Pin " {{pin.title}} "{% endblock %}
 
 {% block body %}
-<h1>Edition de la pin "{{pin.title}}"</h1>
+<div class="row">
+  <div class="col-md-6 mx-auto">
+  <h1 class="text-center">Edition de l'épingle "{{pin.title}}"</h1>
 
-{% include "/pins/_form.html.twig" with {'submitBottomText': 'Mise à jour'} %}
-    
+  {% include "/pins/_form.html.twig" with {'submitBottomText': 'Mise à jour'} %}
+  </div>
+  </div>
+      
 {% endblock %}

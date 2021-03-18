@@ -1,9 +1,9 @@
 {% extends '/layouts/base.html.twig' %}
 
-{% block title %}Find all the best pins on earth !{% endblock %}
+{% block title %}Trouver les meilleures épingle du Web !!!{% endblock %}
 
 {% block body %}
-<h1>{{ pluralize( pins|length ,'Pin') }}</h1>
+<h1>{{ pluralize( pins|length ,'Epinge') }}</h1>
     {% for pin in pins %}
         <article>
             <a href="{{path('app_pins_show',  {'id': pin.id})}}">
