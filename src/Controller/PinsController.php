@@ -22,7 +22,8 @@ class PinsController extends AbstractController
             return $this->render('pins/index.html.twig',compact('pins'));
         }
 
-    /**
+    
+        /**
      * @Route("/pins/create", name="app_pins_create", methods="GET|POST")
      */
     public function create(Request $request, EntityManagerInterface $em): Response
@@ -48,7 +49,8 @@ class PinsController extends AbstractController
             return $this->render('pins/create.html.twig', compact('form'));
         }
 
-    /**
+    
+        /**
      * @Route("/pins/{id<[0-9]+>}", name="app_pins_show", methods="GET")
      */
     public function show(Pin $pin): Response
@@ -56,7 +58,8 @@ class PinsController extends AbstractController
             return $this->render('pins/show.html.twig', compact('pin'));
         }
 
-    /**
+    
+        /**
      * @Route("/pins/{id<[0-9]+>}/edit", name="app_pins_edit", methods="GET|PUT")
      */
     public function edit(Pin $pin, Request $request, EntityManagerInterface $em): Response
@@ -80,16 +83,17 @@ class PinsController extends AbstractController
             return $this->render('pins/edit.html.twig', compact('pin','form'));
         }
 
-    /**
+    
+        /**
      * @Route("/pins/{id<[0-9]+>}", name="app_pins_delete", methods="DELETE")
      */
     public function delete( Request $request, Pin $pin, EntityManagerInterface $em): Response
         {
-            $token = $request->request->get('csrf_token');
-            if ($this->isCsrfTokenValid('pin_deletion_'. $pin->getId(), $token)) {
+            $submittedToken = $request->request->get('token');
+            if ($this->isCsrfTokenValid('delete-pin', $submittedToken)) {
                 $em->remove($pin);
                 $em->flush();
-                return $this->redirectToRoute('app_home');
             }
+            return $this->redirectToRoute('app_home');
         }
 }
