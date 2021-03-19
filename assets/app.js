@@ -19,3 +19,8 @@ require('bootstrap');
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
+
+$('.custom-file-input').on('change',function(e){
+  let inputFile = e.currentTarget;
+  $(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+})
