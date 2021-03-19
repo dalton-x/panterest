@@ -27,6 +27,14 @@ html, body{
 }
 
 .vich-image a img{
-    max-width: 350px;
-    max-height: 350px;
+    max-width: 350px !important;
+    max-height: 350px !important;
+    @extend .mb-2;
+    @extend .rounded;
+    @extend .shadow;
+    @extend .img-thumbnail;
+    
+    .form-check{
+        @extend .mt-3
+    }
 }
