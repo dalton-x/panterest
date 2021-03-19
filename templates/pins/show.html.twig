@@ -11,11 +11,11 @@
         <img class="img-show d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpeg') }}"
           alt="{{ pin.title }}" />
       </div>
-      <h2 class="h5 pt-3">
+      <h1 class="h5 pt-3">
         <a class="pl-3 text-muted text-decoration-none" href="{{path('app_pins_show',  {'id': pin.id})}}">
           {{ pin.title }}
         </a>
-      </h2>
+      </h1>
       <p class="pl-3 pb-3">
         <small class="text-muted">
           Ajouté 

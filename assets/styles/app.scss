@@ -29,10 +29,7 @@ html, body{
 .vich-image a img{
     width: 200px !important;
     height: 200px !important;
-    @extend .mb-2;
-    @extend .rounded;
-    @extend .shadow;
-    @extend .img-thumbnail;
+    @extend .mb-2,.rounded,.shadow,.img-thumbnail;
     
     .form-check{
         @extend .mt-3
@@ -41,18 +38,12 @@ html, body{
 
 article img.img-index{
     height: 300px !important;
-    @extend .mb-2;
-    @extend .rounded;
-    @extend .shadow;
-    @extend .img-thumbnail;
+    @extend .mb-2,.rounded,.shadow,.img-thumbnail;
 }
 
 article img.img-show{
     height: 365px !important;
-    @extend .mb-2;
-    @extend .rounded;
-    @extend .shadow;
-    @extend .img-thumbnail;
+    @extend .mb-2,.rounded,.shadow,.img-thumbnail;
 }
 
 .pin img{
