@@ -27,8 +27,8 @@ html, body{
 }
 
 .vich-image a img{
-    max-width: 350px !important;
-    max-height: 350px !important;
+    width: 200px !important;
+    height: 200px !important;
     @extend .mb-2;
     @extend .rounded;
     @extend .shadow;
@@ -36,5 +36,20 @@ html, body{
     
     .form-check{
         @extend .mt-3
+    }
+}
+
+article img.img-index{
+    height: 300px !important;
+    @extend .mb-2;
+    @extend .rounded;
+    @extend .shadow;
+    @extend .img-thumbnail;
+}
+
+.pin img{
+    transition: transform 0.3s ease-out;
+    &:hover {
+        transform: scale(1.075);
     }
 }

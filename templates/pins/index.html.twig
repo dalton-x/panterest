@@ -3,14 +3,36 @@
 {% block title %}Trouver les meilleures épingle du Web !!!{% endblock %}
 
 {% block body %}
-<h1>{{ pluralize( pins|length ,'Epinge') }}</h1>
-    {% for pin in pins %}
-        <article>
-            <a href="{{path('app_pins_show',  {'id': pin.id})}}">
-                <h2>{{ pin.title }}</h2>
-            </a>
-            <p> {{ pin.description|u.truncate(10, ' ...', false) }} </p>
-            <p>Ajouté {{ pin.createdAt|ago(locale='fr') }} </p>
-        </article>
+{% if pins|length > 0 %}
+    <h1 class="text-center text-muted mb-4">{{ pluralize( pins|length ,'Eplinge') }}</h1>
+    
+    {# batch permet de trier par nombre pour la par exemple pour les rows #}
+    {% for row in pins|batch(3) %}
+        <div class="row mb-5">
+            {% for pin in row %}
+                <div class="col-md-4">
+                    <article class="pin bg-white rounded shadow">
+                        <div class="mw-100 overflow-hidden">
+                            <a href="{{path('app_pins_show',  {'id': pin.id})}}">
+                                {# Genere l'image enfonction de la BDD sinon cela prend l'image de base 'placeholder.jpeg' #}
+                                <img class="img-index" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('images/placeholder.jpeg') }}" alt="{{ pin.title }}" />
+                            </a>
+                        </div>
+                        <h2 class="h5 pt-3">
+                            <a class="pl-3 text-muted text-decoration-none" href="{{path('app_pins_show',  {'id': pin.id})}}">
+                                {{ pin.title }}
+                            </a>
+                        </h2>
+                        <p class="pl-3 pb-3"><small class="text-muted">Ajouté [OWNER FULL NAME] </small></p>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
+    
+
+{% else %}
+        <p class="text-center mt-5 h1">Pas d'épingles diponibles <a href="{{ path('app_pins_create') }}">Soyez le premier</a> </p>
+{% endif %}
+
 {% endblock %}
