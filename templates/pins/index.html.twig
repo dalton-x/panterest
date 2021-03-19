@@ -12,10 +12,10 @@
             {% for pin in row %}
                 <div class="col-md-4">
                     <article class="pin bg-white rounded shadow">
-                        <div class="mw-100 overflow-hidden">
+                        <div class="mw-100 overflow-hidden rounded-top">
                             <a href="{{path('app_pins_show',  {'id': pin.id})}}">
                                 {# Genere l'image enfonction de la BDD sinon cela prend l'image de base 'placeholder.jpeg' #}
-                                <img class="img-index d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('images/placeholder.jpeg') }}" alt="{{ pin.title }}" />
+                                <img class="img-index d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpeg') }}" alt="{{ pin.title }}" />
                             </a>
                         </div>
                         <h2 class="h5 pt-3">
