@@ -47,6 +47,14 @@ article img.img-index{
     @extend .img-thumbnail;
 }
 
+article img.img-show{
+    height: 365px !important;
+    @extend .mb-2;
+    @extend .rounded;
+    @extend .shadow;
+    @extend .img-thumbnail;
+}
+
 .pin img{
     transition: transform 0.3s ease-out;
     &:hover {
