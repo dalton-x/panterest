@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Pin
 {
-    // urilisation du trait == entity globale
+    // utilisation du trait == entity globale
     use Timestampable;
     /**
      * @ORM\Id

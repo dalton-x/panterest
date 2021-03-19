@@ -24,7 +24,7 @@ class AppExtentionExtension extends AbstractExtension
             new TwigFunction('pluralize', [$this, 'pluralize']),
         ];
     }
-                                                              //  ? est optionnel avec une valeur par default
+                                                        //  ? est optionnel avec une valeur par default
     public function pluralize(int $count, string $singular, ?string $plurial = null )
     {
         $plurial ??=  $singular . 's';
