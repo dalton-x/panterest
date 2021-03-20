@@ -19,7 +19,7 @@
       <p class="pl-3 pb-3">
         <small class="text-muted">
           Ajouté 
-          <time datetime="{{ pin.createdAt | date('Y-m-d H:i:s') }}" >{{ pin.createdAt | ago }}</time> par [OWNER FULL NAME] 
+          <time datetime="{{ pin.createdAt | date('Y-m-d H:i:s') }}" >{{ pin.createdAt | ago }}</time> par {{ pin.user.fullName }}
         </small>
       </p>
 
