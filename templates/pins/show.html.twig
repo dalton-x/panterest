@@ -11,31 +11,31 @@
         <img class="img-show d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpeg') }}"
           alt="{{ pin.title }}" />
       </div>
-      <h1 class="h5 pt-3">
-        <a class="pl-3 text-muted text-decoration-none" href="{{path('app_pins_show',  {'id': pin.id})}}">
+      <div class="p-3">
+        <h1 class="h5 text-muted">
           {{ pin.title }}
-        </a>
-      </h1>
-      <p class="pl-3 pb-3">
-        <small class="text-muted">
-          Ajouté 
-          <time datetime="{{ pin.createdAt | date('Y-m-d H:i:s') }}" >{{ pin.createdAt | ago }}</time> par {{ pin.user.fullName }}
-        </small>
-      </p>
-
-      <p class="pl-3 pb-3">
-        {{pin.description}}
-      </p>
-      <div class="pl-3 pb-3">
-        <a class="btn btn-light" href="{{ path('app_pins_edit', {'id':pin.id}) }}">Edition</a>
-        <a class="btn btn-light" href="#"
-          onclick="event.preventDefault(); confirm('Etes vous sure ?') && document.getElementById('js-pin-delete-form').submit();">Supression</a>
-        <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id':pin.id}) }}" method="POST"
-          style="display: none;">
-          <input type="hidden" name="token" value="{{ csrf_token('delete-pin') }}" />
-          <input type="hidden" name="_method" value="DELETE">
-        </form>
-      </div>
+        </h1>
+        <p>
+          <small class="text-muted">
+            Ajouté 
+            <time datetime="{{ pin.createdAt | date('Y-m-d H:i:s') }}" >{{ pin.createdAt | ago }}</time> par {{ pin.user.fullName }}
+          </small>
+        </p>
+  
+        <p class="text-break">
+          {{pin.description}}
+        </p>
+        <div class="pt-3">
+          <a class="btn btn-light" href="{{ path('app_pins_edit', {'id':pin.id}) }}">Edition</a>
+          <a class="btn btn-light" href="#"
+            onclick="event.preventDefault(); confirm('Etes vous sure ?') && document.getElementById('js-pin-delete-form').submit();">Supression</a>
+          <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id':pin.id}) }}" method="POST"
+            style="display: none;">
+            <input type="hidden" name="token" value="{{ csrf_token('delete-pin') }}" />
+            <input type="hidden" name="_method" value="DELETE">
+          </form>
+        </div>
+      </div>      
     </article>
   </div>
 </div>
