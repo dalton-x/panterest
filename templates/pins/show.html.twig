@@ -25,16 +25,18 @@
         <p class="text-break">
           {{pin.description}}
         </p>
-        <div class="pt-3">
-          <a class="btn btn-light" href="{{ path('app_pins_edit', {'id':pin.id}) }}">Edition</a>
-          <a class="btn btn-light" href="#"
-            onclick="event.preventDefault(); confirm('Etes vous sure ?') && document.getElementById('js-pin-delete-form').submit();">Supression</a>
-          <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id':pin.id}) }}" method="POST"
-            style="display: none;">
-            <input type="hidden" name="token" value="{{ csrf_token('delete-pin') }}" />
-            <input type="hidden" name="_method" value="DELETE">
-          </form>
-        </div>
+        {% if app.user.email == pin.user.email %}
+          <div class="pt-3">
+            <a class="btn btn-light" href="{{ path('app_pins_edit', {'id':pin.id}) }}">Edition</a>
+            <a class="btn btn-light" href="#"
+              onclick="event.preventDefault(); confirm('Etes vous sure ?') && document.getElementById('js-pin-delete-form').submit();">Supression</a>
+            <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id':pin.id}) }}" method="POST"
+              style="display: none;">
+              <input type="hidden" name="token" value="{{ csrf_token('delete-pin') }}" />
+              <input type="hidden" name="_method" value="DELETE">
+            </form>
+          </div>
+        {% endif %}
       </div>      
     </article>
   </div>
