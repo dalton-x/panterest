@@ -71,7 +71,6 @@ class Pin
 
     public function getTitle(): ?string
     {
-
         return $this->title;
     }
 
