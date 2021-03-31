@@ -5,7 +5,6 @@
 {% block body %}
 {% if pins|length > 0 %}
     <h1 class="text-center text-muted mb-4">{{ pluralize( pins|length ,'Eplinge') }}</h1>
-    
     {# batch permet de trier par nombre pour la par exemple pour les rows #}
     {% for row in pins|batch(3) %}
         <div class="row mb-5">
