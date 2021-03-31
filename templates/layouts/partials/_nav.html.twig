@@ -15,10 +15,8 @@
             <a class="nav-link" href="#">Compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();">Déconnexion</a>
-            <form id="js-logout-form" action="{{ path('app_logout') }}" method="POST" style="display: none;">
-              <input name="_csrf_token" type="hidden" value="{{ csrf_token('logout') }}">
-            </form>
+            <!-- logout_path function twig mettre le nom du firewall dans le parametre pour la création et la gestion de CSRF-->
+            <a class="nav-link" href="{{ logout_path('main') }}">Déconnexion</a> 
           </li>
         {% else %}
           <li class="nav-item">
