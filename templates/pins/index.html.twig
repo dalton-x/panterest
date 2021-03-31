@@ -17,8 +17,8 @@
                                 <img class="img-index d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpeg') }}" alt="{{ pin.title }}" />
                             </a>
                         </div>
-                        <h2 class="h5 pt-3">
-                            <a class="pl-3 text-muted text-decoration-none" href="{{path('app_pins_show',  {'id': pin.id})}}">
+                        <h2 class="pl-3 h5 pt-3">
+                            <a class="text-muted text-decoration-none" href="{{path('app_pins_show',  {'id': pin.id})}}">
                                 {{ pin.title }}
                             </a>
                         </h2>
