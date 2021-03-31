@@ -15,7 +15,10 @@
             <a class="nav-link" href="#">Compte</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();">Déconnexion</a>
+            <form id="js-logout-form" action="{{ path('app_logout') }}" method="POST" style="display: none;">
+              <input name="_csrf_token" type="hidden" value="{{ csrf_token('logout') }}">
+            </form>
           </li>
         {% else %}
           <li class="nav-item">

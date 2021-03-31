@@ -33,7 +33,7 @@
                 onclick="event.preventDefault(); confirm('Etes vous sure ?') && document.getElementById('js-pin-delete-form').submit();">Supression</a>
               <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id':pin.id}) }}" method="POST"
                 style="display: none;">
-                <input type="hidden" name="token" value="{{ csrf_token('delete-pin') }}" />
+                <input type="hidden" name="token" value="{{ csrf_token('delete_pin_'~ pin.id) }}" />
                 <input type="hidden" name="_method" value="DELETE">
               </form>
             </div>
