@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if pins|length > 0 %}
-        <h1 class="mb-4 text-center text-muted">{{ pluralize(pins|length, 'Pin') }}</h1>
+        <h1 class="mb-4 text-center text-muted">{{ pluralize(pins|length, 'Epingle') }}</h1>
         
         {% for row in pins|batch(3) %}
             <div class="row mb-5">
@@ -26,6 +26,6 @@
             </div>
         {% endfor %}
     {% else %}
-        <p class="mt-5 h1 text-center">Pas encore d'épingle. <a href="{{ path('app_pins_create') }}">Soyer le premier </a></p>
+        <p class="mt-5 h1 text-center">Pas encore d'épingle. <a href="{{ path('app_pins_create') }}">Soyez le premier </a></p>
     {% endif %}
 {% endblock %}
