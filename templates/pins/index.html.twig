@@ -1,37 +1,31 @@
-{% extends '/layouts/base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}Trouver les meilleures épingle du Web !!!{% endblock %}
+{% block title 'Find all the best pins on earth!' %}
 
 {% block body %}
-{% if pins|length > 0 %}
-    <h1 class="text-center text-muted mb-4">{{ pluralize( pins|length ,'Eplinge') }}</h1>
-    {# batch permet de trier par nombre pour la par exemple pour les rows #}
-    {% for row in pins|batch(3) %}
-        <div class="row mb-5">
+    {% if pins|length > 0 %}
+        <h1 class="mb-4 text-center text-muted">{{ pluralize(pins|length, 'Pin') }}</h1>
+        
+        {% for row in pins|batch(3) %}
+            <div class="row mb-5">
             {% for pin in row %}
                 <div class="col-md-4">
                     <article class="pin bg-white rounded shadow">
-                        <div class="mw-100 overflow-hidden rounded-top">
-                            <a href="{{path('app_pins_show',  {'id': pin.id})}}">
-                                {# Genere l'image enfonction de la BDD sinon cela prend l'image de base 'placeholder.jpeg' #}
-                                <img class="img-index d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpeg') }}" alt="{{ pin.title }}" />
+                        <div class="mw-100 rounded-top overflow-hidden">
+                            <a href="{{ path('app_pins_show', {id: pin.id}) }}">
+                                <img src="{{ (pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium') }}" alt="{{ pin.title }}" class="w-100" />
                             </a>
                         </div>
-                        <h2 class="pl-3 h5 pt-3">
-                            <a class="text-muted text-decoration-none" href="{{path('app_pins_show',  {'id': pin.id})}}">
-                                {{ pin.title }}
-                            </a>
-                        </h2>
-                        <p class="pl-3 pb-3"><small class="text-muted">Ajouté par {{ pin.user.fullName }} </small></p>
+                        <h2 class="h5 pl-3 pt-3"><a href="{{ path('app_pins_show', {id: pin.id}) }}" class="text-secondary text-decoration-none">{{ pin.title }}</a></h2>
+                        <p class="pl-3 pb-3 text-muted"><small>Créé par {{ pin.user.fullName }}</small> <br>
+                        <span class="text-muted"><small>le {{ pin.user.updatedAt|date("d/m/Y") }}</small></span>
+                        </p>
                     </article>
                 </div>
             {% endfor %}
-        </div>
-    {% endfor %}
-    
-
-{% else %}
-        <p class="text-center mt-5 h1">Pas d'épingles diponibles <a href="{{ path('app_pins_create') }}">Soyez le premier</a> </p>
-{% endif %}
-
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="mt-5 h1 text-center">Pas encore d'épingle. <a href="{{ path('app_pins_create') }}">Soyer le premier </a></p>
+    {% endif %}
 {% endblock %}

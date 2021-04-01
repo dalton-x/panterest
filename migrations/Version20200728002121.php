@@ -10,11 +10,11 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210320100321 extends AbstractMigration
+final class Version20200728002121 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return 'Ajout de relations entre la table Users et la table Pins';
+        return 'Add relation between pins and users table';
     }
 
     public function up(Schema $schema) : void

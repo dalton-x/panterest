@@ -1,47 +1,43 @@
-{% extends '/layouts/base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}{{pin.title}}{% endblock %}
+{% block title pin.title %}
 
 {% block body %}
-<div class="row">
-  <div class="col-md-6 mx-auto">
-    <article class="pin bg-white rounded shadow">
-      <div class="mw-100 overflow-hidden mx-auto rounded-top">
-        {# Genere l'image enfonction de la BDD sinon cela prend l'image de base 'placeholder.jpeg' #}
-        <img class="img-show d-block mx-auto" src="{{ pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpeg') }}"
-          alt="{{ pin.title }}" />
-      </div>
-      <div class="p-3">
-        <h1 class="h5 text-muted">
-          {{ pin.title }}
-        </h1>
-        <p>
-          <small class="text-muted">
-            Ajouté 
-            <time datetime="{{ pin.createdAt | date('Y-m-d H:i:s') }}" >{{ pin.createdAt | ago }}</time> par {{ pin.user.fullName }}
-          </small>
-        </p>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <article class="pin bg-white rounded shadow">
+                <div class="mw-100 rounded-top overflow-hidden">
+                    <img src="{{ (pin.imageName ? vich_uploader_asset(pin) : asset('build/images/placeholder.jpg')) | imagine_filter('squared_thumbnail_medium') }}" alt="{{ pin.title }}" class="w-100" />
+                </div>
 
-        <p class="text-break">
-          {{pin.description}}
-        </p>
-        {% if app.user %}
-          {% if app.user.email == pin.user.email %}
-            <div class="pt-3">
-              <a class="btn btn-light" href="{{ path('app_pins_edit', {'id':pin.id}) }}">Edition</a>
-              <a class="btn btn-light" href="#"
-                onclick="event.preventDefault(); confirm('Etes vous sure ?') && document.getElementById('js-pin-delete-form').submit();">Supression</a>
-              <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {'id':pin.id}) }}" method="POST"
-                style="display: none;">
-                <input type="hidden" name="token" value="{{ csrf_token('delete_pin_'~ pin.id) }}" />
-                <input type="hidden" name="_method" value="DELETE">
-              </form>
-            </div>
-          {% endif %}
-        {% endif %}
-      </div>      
-    </article>
-  </div>
-</div>
+                <div class="p-3">
+                    <h1 class="h5 text-secondary">{{ pin.title }}</h1>
 
+                    <p class="text-muted">
+                        <small>
+                            Soumit  
+                            <time datetime="{{ pin.createdAt|date('Y-m-d H:i:s') }}">{{ pin.createdAt|ago(locale='fr') }}</time>
+                            par {{ pin.user.fullName }}
+                        </small>
+                    </p>
+
+                    <p class="pt-3 text-break">
+                        {{ pin.description }}
+                    </p>
+
+                    {% if is_granted('PIN_MANAGE', pin) %}
+                    <div class="pt-3">
+                        <a href="{{ path('app_pins_edit', {'id': pin.id}) }}" class="btn btn-info">Editer</a>
+                        <a href="#" onclick="event.preventDefault(); confirm('Are you sure?') && document.getElementById('js-pin-delete-form').submit();" class="btn btn-danger">Supprimer</a>
+
+                        <form id="js-pin-delete-form" action="{{ path('app_pins_delete', {id: pin.id}) }}" method="post" style="display: none;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token('pin_deletion_' ~ pin.id) }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                        </form> 
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+        </div>
+    </div>
 {% endblock %}

@@ -8,22 +8,25 @@
     <div class="collapse navbar-collapse" id="navbarsExample03">
       <ul class="navbar-nav ml-auto">
         {% if app.user %}
-          <li class="nav-item {{ app.request.get('_route') == 'app_pins_create' ? 'active' }}">
-            <a class="nav-link" href="{{ path('app_pins_create') }}">Nouvelle épingle</a>
-          </li>
-          <li class="nav-item {{ app.request.get('_route') == 'app_compte' ? 'active' }}">
-            <a class="nav-link" href="#">Compte</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_pins_create') }}">Nouvelle Epingle</a>
           </li>
           <li class="nav-item">
-            <!-- logout_path function twig mettre le nom du firewall dans le parametre pour la création et la gestion de CSRF-->
-            <a class="nav-link" href="{{ logout_path('main') }}">Déconnexion</a> 
+            <a class="nav-link" href="{{ path('app_account') }}">Compte</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();">Déconnexion</a>
+          </li>
+
+          <form id="js-logout-form" action="{{ path('app_logout') }}" method="POST" style="display: none;">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+          </form>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+            <a class="nav-link" href="{{ path('app_register') }}">S'incrire</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+            <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
           </li>
         {% endif %}
       </ul>

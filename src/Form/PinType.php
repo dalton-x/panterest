@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Pin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PinType extends AbstractType
 {
@@ -14,23 +16,14 @@ class PinType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Image (JPG ou PNG), limite 5mb .',
+                'label' => 'Image (JPG or PNG file)',
                 'required' => false,
                 'allow_delete' => true,
-                'delete_label' => 'Supprimer l\'image ?',
-                'download_label' => 'Télecharger l\'image',
                 'download_uri' => false,
-                // 'imagine_pattern' => 'squared_thumbnail_small'
+                'imagine_pattern' => 'squared_thumbnail_small'
             ])
-            ->add('title', null,  [
-                'label' => 'Titre'
-            ])
-            ->add('description', null,  [
-                'label' => 'Description',
-                'attr' =>[
-                    'rows' => 10
-                ]
-            ])
+            ->add('title', TextType::class)
+            ->add('description', TextareaType::class)
         ;
     }
 

@@ -1,53 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-// chargement des variables
-@import './shared/_variables.scss';
-// Chargement de bootstrap
+
+@import 'shared/variables'; 
+
 @import "~bootstrap";
 
-
-html, body{
-    font-family: $primary-font, sans-serif;
+body {
+    font-family: $primary-font, sans-serif; 
 }
-.alert{
+
+.alert {
     padding: 10px;
     color: white;
     text-align: center;
     margin: 0;
     border: none;
     border-radius: 0;
-    &.alert-success{
+
+    &.alert-success {
         background-color: green;
-    } 
-    &.alert-error{
+    }
+
+    &.alert-error {
         background-color: red;
-    } 
-    &.alert-info{
+    }
+
+    &.alert-info {
         background-color: blue;
     }
 }
 
-.vich-image a img{
-    width: 200px !important;
-    height: 200px !important;
-    @extend .mb-2,.rounded,.shadow,.img-thumbnail;
-    
-    .form-check{
-        @extend .mt-3
+.vich-image {
+    .form-check {
+        @extend .mt-3;
+    }
+
+    img {
+        @extend .mb-2, .rounded, .shadow, .img-thumbnail;
     }
 }
 
-article img.img-index{
-    height: 300px !important;
-    @extend .mb-2,.rounded,.shadow,.img-thumbnail;
-}
-
-article img.img-show{
-    height: 365px !important;
-    @extend .mb-2,.rounded,.shadow,.img-thumbnail;
-}
-
-.pin img{
+.pin img {
     transition: transform 0.3s ease-out;
+    
     &:hover {
         transform: scale(1.075);
     }

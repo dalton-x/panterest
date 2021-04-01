@@ -2,29 +2,24 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Panterest!{% endblock %}</title>
+        <title>{% block title %}Panterest{% endblock %}</title>
         {% block stylesheets %}
-            {# Methode pour charger les style avec ENCORE #}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        {% include "layouts/partials/_flash_messages.html.twig" %}
+        {{ include('layouts/partials/_flash_messages.html.twig') }}
 
-        {% include "layouts/partials/_nav.html.twig" %}
-
-        <main role="main" class="container">
-            {% block body %}
+        {{ include('layouts/partials/_nav.html.twig') }}
         
-            {% endblock %}
+        <main role="main" class="container">
+            {% block body %}{% endblock %}
         </main>
 
-        {% include "layouts/partials/_footer.html.twig" %}
+        {{ include('layouts/partials/_footer.html.twig') }}
 
         {% block javascripts %}
-            {# Methode pour charger les script js avec ENCORE #}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-        
     </body>
 </html>

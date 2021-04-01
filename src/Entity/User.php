@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Timestampable;
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use App\Entity\Traits\Timestampable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,35 +15,35 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
- * @UniqueEntity(fields={"email"}, message="Cet email est déjà utiliser pour un autre compte")
+ * @UniqueEntity(fields="email", message="There is already an account with this email")
  */
 class User implements UserInterface
 {
-    // utilisation du trait == entity globale
     use Timestampable;
+
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez mettre votre prénom")
+     * @Assert\NotBlank(message="Please enter your first name")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez mettre votre nom")
+     * @Assert\NotBlank(message="Please enter your last name")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Veuillez mettre votre Email")
-     * @Assert\Email(message="Veuillez mettre une Email valide")
+     * @Assert\NotBlank(message="Please enter your email address")
+     * @Assert\Email(message="Please enter a valid email address")
      */
     private $email;
 
@@ -100,11 +100,6 @@ class User implements UserInterface
         $this->lastName = $lastName;
 
         return $this;
-    }
-
-    public function getFullName(): ?string
-    {
-        return $this->firstName .' '. $this->lastName;
     }
 
     public function getEmail(): ?string
@@ -164,14 +159,11 @@ class User implements UserInterface
     }
 
     /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
      * @see UserInterface
      */
-    public function getSalt(): ?string
+    public function getSalt()
     {
-        return null;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
@@ -190,7 +182,7 @@ class User implements UserInterface
     {
         return $this->pins;
     }
-
+    
     public function addPin(Pin $pin): self
     {
         if (!$this->pins->contains($pin)) {
@@ -203,7 +195,8 @@ class User implements UserInterface
 
     public function removePin(Pin $pin): self
     {
-        if ($this->pins->removeElement($pin)) {
+        if ($this->pins->contains($pin)) {
+            $this->pins->removeElement($pin);
             // set the owning side to null (unless already changed)
             if ($pin->getUser() === $this) {
                 $pin->setUser(null);
@@ -211,6 +204,16 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    public function getGravatarUrl(?int $size = 100)
+    {
+        return sprintf('https://www.gravatar.com/avatar/%s?s=%d', md5(strtolower(trim($this->getEmail()))), $size);
     }
 
     public function isVerified(): bool

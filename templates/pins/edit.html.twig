@@ -1,14 +1,13 @@
-{% extends '/layouts/base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}Edition du Pin " {{pin.title}} "{% endblock %}
+{% block title 'Modifier l\'épingle #' ~ pin.id %}
 
 {% block body %}
-<div class="row">
-  <div class="col-md-6 mx-auto">
-  <h1 class="text-center">Edition de l'épingle "{{pin.title}}"</h1>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>Modifier l'épingle <br> {{ pin.title }}</h1>
 
-  {% include "/pins/_form.html.twig" with {'submitBottomText': 'Mise à jour'} %}
-  </div>
-  </div>
-      
+            {{ include('pins/_form.html.twig', {'submitButtonText': 'Update Pin'}) }}
+        </div>
+    </div>
 {% endblock %}

@@ -14,13 +14,13 @@ class EmailVerifier
 {
     private $verifyEmailHelper;
     private $mailer;
-    private $entityManager;
+    private $em;
 
-    public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $manager)
+    public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $em)
     {
         $this->verifyEmailHelper = $helper;
         $this->mailer = $mailer;
-        $this->entityManager = $manager;
+        $this->em = $em;
     }
 
     public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
@@ -33,8 +33,7 @@ class EmailVerifier
 
         $context = $email->getContext();
         $context['signedUrl'] = $signatureComponents->getSignedUrl();
-        $context['expiresAtMessageKey'] = $signatureComponents->getExpirationMessageKey();
-        $context['expiresAtMessageData'] = $signatureComponents->getExpirationMessageData();
+        $context['expiresAt'] = $signatureComponents->getExpiresAt();
 
         $email->context($context);
 
@@ -50,7 +49,7 @@ class EmailVerifier
 
         $user->setIsVerified(true);
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->em->persist($user);
+        $this->em->flush();
     }
 }
